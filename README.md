@@ -1,48 +1,33 @@
-<!-- Header -->
-        <div class="header-card">
-            <div class="banner-wrapper">
-                <img src="Banner.jpeg" class="banner-img" alt="Banner">
-            </div>
-            
-            <div class="profile-wrapper">
-                <img src="profile.png" class="profile-img" alt="Profile">
-            </div>
-            
-            <div class="info-section">
+    const currentUser = JSON.parse(localStorage.getItem("user"));
 
-    <h1 class="main-title">
-        IPI BANGKALAN JAYA
-    </h1>
+const userDisplay = document.getElementById("userDisplay");
+const loginBtn = document.getElementById("loginBtn");
+const registerBtn = document.getElementById("registerBtn");
+const adminBtn = document.getElementById("adminBtn");
+const logoutBtn = document.getElementById("logoutBtn");
 
-    <div class="subtitle">
-        "IPI Jaya, Penilik Sejahtera, Paud Dikmas Berkualitas"
-    </div>
+if (currentUser) {
+    userDisplay.innerHTML = `Halo, ${currentUser.username} (${currentUser.role}) `;
+    
+    loginBtn.style.display = "none";
+    registerBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
 
-    <div class="mt-3 d-flex flex-wrap gap-2 justify-content-center">
+    if (currentUser.role === "admin") {
+        adminBtn.style.display = "inline-block";
+    }
+} else {
+    userDisplay.innerHTML = "";
+    loginBtn.style.display = "inline-block";
+    registerBtn.style.display = "inline-block";
+    adminBtn.style.display = "none";
+    logoutBtn.style.display = "none";
+}
 
-    <span id="userDisplay" class="fw-bold text-primary align-self-center"></span>
+function handleLogout() {
+    localStorage.removeItem("user");
+    window.location.reload();
+}
+    </script>
 
-    <a href="login.html" id="loginBtn" class="btn btn-outline-primary btn-sm">
-        Login
-    </a>
-
-    <a href="register.html" id="registerBtn" class="btn btn-success btn-sm">
-        Register
-    </a>
-
-    <a href="forum.html" class="btn btn-warning btn-sm">
-        Forum Diskusi
-    </a>
-
-    <!-- TOMBOL MENU ADMIN BARU (Disembunyikan bawaan) -->
-    <a href="admin.html" id="adminBtn" class="btn btn-dark btn-sm" style="display:none;">
-        <i class="fa-solid fa-user-gear"></i> Menu Admin
-    </a>
-
-    <button id="logoutBtn" class="btn btn-danger btn-sm" style="display:none;" onclick="handleLogout()">
-        Logout
-    </button>
-
-</div>
-
-    </div>
+    <script src="js/auth.js"></script>
